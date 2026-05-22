@@ -51,6 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showAudioMutedPrompt() {
+    if (audioPrompt) {
+      audioPrompt.classList.remove('fade-out');
+      const textSpan = audioPrompt.querySelector('span:not(.audio-prompt-dot)');
+      if (textSpan) {
+        textSpan.innerText = "AUDIO SYSTEM: MUTED // CLICK HERO VIDEO TO UNMUTE";
+      }
+    }
+  }
+
   if (heroVideo) {
     // Attempt unmuted playback initially
     heroVideo.muted = false;
@@ -61,32 +71,46 @@ document.addEventListener('DOMContentLoaded', () => {
         dismissAudioPrompt();
       })
       .catch(error => {
-        console.warn("Unmuted autoplay blocked. Running muted first, unmuting on first user interaction.");
+        console.warn("Unmuted autoplay blocked. Running muted first.");
         
         // Fallback: Autoplay muted
         heroVideo.muted = true;
         heroVideo.play().catch(err => {
           console.error("Muted playback also blocked.", err);
         });
-        
-        // Unmute on first user touch/click anywhere on the viewport
-        const unmuteOnInteraction = () => {
-          heroVideo.muted = false;
-          heroVideo.play()
-            .then(() => {
-              dismissAudioPrompt();
-            })
-            .catch(err => {
-              console.warn("Failed to play unmuted after interaction:", err);
-            });
-          
-          document.removeEventListener('click', unmuteOnInteraction);
-          document.removeEventListener('touchstart', unmuteOnInteraction);
-        };
-        
-        document.addEventListener('click', unmuteOnInteraction);
-        document.addEventListener('touchstart', unmuteOnInteraction);
       });
+
+    // Toggle mute state on clicking the hero video
+    heroVideo.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent document-level click listener conflicts
+      
+      heroVideo.muted = !heroVideo.muted;
+      if (heroVideo.muted) {
+        showAudioMutedPrompt();
+      } else {
+        dismissAudioPrompt();
+      }
+    });
+
+    // Also unmute on first document-wide click/touch (excluding the video itself if clicked directly)
+    const unmuteOnFirstInteraction = (e) => {
+      if (e.target === heroVideo) {
+        // Handled by the video click listener above
+        document.removeEventListener('click', unmuteOnFirstInteraction);
+        document.removeEventListener('touchstart', unmuteOnFirstInteraction);
+        return;
+      }
+      
+      if (heroVideo.muted) {
+        heroVideo.muted = false;
+        dismissAudioPrompt();
+      }
+      document.removeEventListener('click', unmuteOnFirstInteraction);
+      document.removeEventListener('touchstart', unmuteOnFirstInteraction);
+    };
+    
+    document.addEventListener('click', unmuteOnFirstInteraction);
+    document.addEventListener('touchstart', unmuteOnFirstInteraction);
   }
 
   // --- 3. Dynamic Text Scramble Hover Mechanic ---
