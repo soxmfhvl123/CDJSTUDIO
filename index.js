@@ -62,23 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (heroVideo) {
-    // Attempt unmuted playback initially
-    heroVideo.muted = false;
+    // Start muted as requested by the user
+    heroVideo.muted = true;
     
-    heroVideo.play()
-      .then(() => {
-        // Unmuted autoplay succeeded (rare but possible under some user profiles)
-        dismissAudioPrompt();
-      })
-      .catch(error => {
-        console.warn("Unmuted autoplay blocked. Running muted first.");
-        
-        // Fallback: Autoplay muted
-        heroVideo.muted = true;
-        heroVideo.play().catch(err => {
-          console.error("Muted playback also blocked.", err);
-        });
-      });
+    heroVideo.play().catch(error => {
+      console.warn("Muted playback blocked.", error);
+    });
+
+    // Ensure initial state shows muted warning prompt
+    showAudioMutedPrompt();
 
     // Toggle mute state on clicking the hero video
     heroVideo.addEventListener('click', (e) => {
@@ -91,26 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dismissAudioPrompt();
       }
     });
-
-    // Also unmute on first document-wide click/touch (excluding the video itself if clicked directly)
-    const unmuteOnFirstInteraction = (e) => {
-      if (e.target === heroVideo) {
-        // Handled by the video click listener above
-        document.removeEventListener('click', unmuteOnFirstInteraction);
-        document.removeEventListener('touchstart', unmuteOnFirstInteraction);
-        return;
-      }
-      
-      if (heroVideo.muted) {
-        heroVideo.muted = false;
-        dismissAudioPrompt();
-      }
-      document.removeEventListener('click', unmuteOnFirstInteraction);
-      document.removeEventListener('touchstart', unmuteOnFirstInteraction);
-    };
-    
-    document.addEventListener('click', unmuteOnFirstInteraction);
-    document.addEventListener('touchstart', unmuteOnFirstInteraction);
   }
 
   // --- 3. Dynamic Text Scramble Hover Mechanic ---
