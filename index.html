@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>CDJ STUDIO // Branded Sound & Visual Experience</title>
+  <meta name="description" content="CDJ STUDIO - An industrial audio-visual architecture lab. Seoul, Korea.">
+  <meta name="keywords" content="CDJ STUDIO, CDJ, sound design, visual art, industrial design, web portfolio, Seoul">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Dynamic Grain Noise Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Main Website Wrapper -->
+  <div class="wrapper">
+    
+    <!-- Massive Full-Bleed Branding Header (At the Very Top) -->
+    <header class="header-container">
+      <h1 class="logo-main" id="logo-header">CDJSTUDIO</h1>
+    </header>
+
+    <!-- Full-Bleed Video Section (Under Logo Header) -->
+    <section class="video-container" id="video-section-container">
+      <!-- Custom scanner visual lines overlay -->
+      <div class="overlay-scanlines"></div>
+      
+      <!-- Local Looping Video Asset -->
+      <video 
+        id="hero-video" 
+        class="video-bg" 
+        src="video_ComfyUI_00023_.mp4" 
+        autoplay 
+        loop 
+        playsinline
+        preload="auto">
+      </video>
+
+      <!-- Vintage Camera Metadata Overlay -->
+      <div class="video-overlay">
+        <!-- Interactive sound unlock visual warning prompt -->
+        <div class="audio-prompt" id="audio-prompt-el">
+          <span class="audio-prompt-dot"></span>
+          <span>AUDIO SYSTEM: STANDBY // CLICK TO ACTIVATE</span>
+        </div>
+
+        <div class="overlay-top">
+          <div class="rec-indicator">
+            <span class="rec-dot"></span>
+            <span>REC [PLAY]</span>
+          </div>
+          <div>CAM 01</div>
+        </div>
+        
+        <div class="overlay-bottom">
+          <div class="tech-specs-left">
+            <div>CDJ-01_SYS_PLAY</div>
+            <div class="tech-timecode" id="cam-timecode">00:00:23:14</div>
+          </div>
+          <div style="text-align: right;">
+            <div>ISO 400</div>
+            <div>FPS 30.0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimal footer navigation and status -->
+    <footer class="footer-bar">
+      <div>© 2026 CDJ STUDIO. ALL RIGHTS RESERVED.</div>
+      <nav class="footer-nav">
+        <a href="#" class="footer-link">[INSTAGRAM]</a>
+        <a href="#" class="footer-link">[SOUNDCLOUD]</a>
+      </nav>
+    </footer>
+  </div>
+
+  <!-- JavaScript Behavior Code -->
+  <script src="index.js"></script>
+</body>
+</html>
