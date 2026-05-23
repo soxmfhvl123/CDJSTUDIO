@@ -333,10 +333,6 @@ body {
   border: none;
 }
 
-.sub-video-item.portrait {
-  aspect-ratio: 3 / 4;
-}
-
 .sub-video {
   width: 100%;
   height: 100%;
@@ -398,6 +394,9 @@ body {
   }
   .sub-video-item:last-child {
     border-bottom: none;
+  }
+  .sub-video {
+    object-fit: contain;
   }
   .header-container {
     padding: 2.5rem 2vw 2rem 2vw;
