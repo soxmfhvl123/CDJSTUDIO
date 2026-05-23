@@ -314,7 +314,7 @@ body {
 /* --- Industrial Sub-Videos Grid Section --- */
 .sub-video-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   border-bottom: 1px solid var(--border-color);
   background-color: #000000;
