@@ -123,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 4. Scramble interactions on category items (WIP) ---
   const categoryItems = document.querySelectorAll('.category-item-simple');
+  
+  // 4a. Mouse Hover Scramble (for desktop)
   categoryItems.forEach(item => {
     const nameEl = item.querySelector('.category-name-simple');
     const originalText = item.getAttribute('data-target');
@@ -133,5 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // 4b. Viewport Intersection Scramble (for mobile scroll triggers)
+  if ('IntersectionObserver' in window) {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -10% 0px",
+      threshold: 0.15
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const item = entry.target;
+          const nameEl = item.querySelector('.category-name-simple');
+          const originalText = item.getAttribute('data-target');
+          
+          if (nameEl && originalText) {
+            triggerScramble(nameEl, originalText, 15);
+          }
+        }
+      });
+    }, observerOptions);
+
+    categoryItems.forEach(item => {
+      scrollObserver.observe(item);
+    });
+  }
 
 });

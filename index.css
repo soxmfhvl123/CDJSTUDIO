@@ -395,6 +395,9 @@ body {
   .sub-video-item:last-child {
     border-bottom: none;
   }
+  .sub-video {
+    object-fit: contain;
+  }
   .header-container {
     padding: 2.5rem 2vw 2rem 2vw;
   }
