@@ -321,16 +321,16 @@ body {
   background-color: #000000;
 }
 
+.backstage-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .sub-video-item {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border: none;
-}
-
-.sub-video-item:nth-child(7) {
-  grid-column: span 2;
 }
 
 .sub-video {
@@ -394,9 +394,6 @@ body {
   }
   .sub-video-item:last-child {
     border-bottom: none;
-  }
-  .sub-video-item:nth-child(7) {
-    grid-column: auto;
   }
   .header-container {
     padding: 2.5rem 2vw 2rem 2vw;
