@@ -344,6 +344,10 @@ body {
               filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.sub-video.fit-contain {
+  object-fit: contain;
+}
+
 .sub-video-item:hover .sub-video {
   opacity: 1;
   filter: contrast(1.15) brightness(1) saturate(1.1);
