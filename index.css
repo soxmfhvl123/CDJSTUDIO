@@ -314,7 +314,7 @@ body {
 /* --- Industrial Sub-Videos Grid Section --- */
 .sub-video-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   width: 100%;
   border-bottom: 1px solid var(--border-color);
   background-color: #000000;
@@ -328,8 +328,12 @@ body {
   border-right: 1px solid var(--border-color);
 }
 
-.sub-video-item:last-child {
+.sub-video-item:nth-child(2n) {
   border-right: none;
+}
+
+.sub-video-item:nth-child(n+3) {
+  border-top: 1px solid var(--border-color);
 }
 
 .sub-video {
@@ -387,6 +391,7 @@ body {
   }
   .sub-video-item {
     border-right: none;
+    border-top: none;
     border-bottom: 1px solid var(--border-color);
   }
   .sub-video-item:last-child {
