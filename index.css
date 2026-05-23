@@ -161,6 +161,7 @@ body {
 }
 
 .overlay-scanlines {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -325,22 +326,15 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-right: 1px solid var(--border-color);
-}
-
-.sub-video-item:nth-child(2n) {
-  border-right: none;
-}
-
-.sub-video-item:nth-child(n+3) {
-  border-top: 1px solid var(--border-color);
+  border: none;
 }
 
 .sub-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   opacity: 0.75;
+  background-color: #000000;
   filter: contrast(1.1) brightness(0.85) saturate(1);
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
               filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
