@@ -122,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 4. Scramble interactions on category items (WIP) ---
-  const categoryItems = document.querySelectorAll('.category-item');
+  const categoryItems = document.querySelectorAll('.category-item-simple');
   categoryItems.forEach(item => {
-    const nameEl = item.querySelector('.category-name');
+    const nameEl = item.querySelector('.category-name-simple');
     const originalText = item.getAttribute('data-target');
     
     if (nameEl && originalText) {

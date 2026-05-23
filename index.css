@@ -336,11 +336,6 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
-.sub-video-item:nth-child(3) {
-  grid-column: span 2;
-  border-right: none;
-}
-
 .sub-video {
   width: 100%;
   height: 100%;
@@ -402,87 +397,52 @@ body {
   .sub-video-item:last-child {
     border-bottom: none;
   }
-  .sub-video-item:nth-child(3) {
-    grid-column: auto;
-  }
   .header-container {
     padding: 2.5rem 2vw 2rem 2vw;
   }
   .header-container::before, .header-container::after {
     display: none; /* Hide micro text on small viewport */
   }
-  .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .category-item {
-    padding: 1.5rem 4vw 1.2rem 4vw;
-    height: 110px;
-  }
 }
 
-/* --- Industrial Categories Grid (WIP) --- */
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background-color: var(--border-color);
-  width: 100%;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.category-item {
-  background-color: #000000;
-  padding: 2.2rem 1.8vw 1.8rem 1.8vw;
+/* --- Industrial Simple Categories List --- */
+.categories-list-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 130px;
-  cursor: default; /* WIP, not clickable */
-  position: relative;
-  overflow: hidden;
-  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  align-items: flex-start;
+  padding: 6rem 2vw 8rem 2vw; /* Generous industrial breathing space */
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #000000;
+}
+
+.category-item-simple {
+  cursor: default;
   user-select: none;
-}
-
-.category-item:hover {
-  background-color: #0d0d0d;
-}
-
-.category-index {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-  font-weight: bold;
   display: block;
+  position: relative;
 }
 
-.category-item:hover .category-index {
-  color: var(--accent-color);
-}
-
-.category-name {
+.category-name-simple {
   font-family: var(--font-neo);
-  font-size: clamp(14px, 1.2vw, 18px);
+  font-size: clamp(2.5rem, 6.5vw, 6rem); /* Absolutely massive and bold! */
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.05em;
   text-transform: uppercase;
   color: var(--text-color);
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 0.85;
+  display: block;
+  transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (max-width: 1024px) {
-  .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.category-item-simple:hover .category-name-simple {
+  color: var(--accent-color); /* Highlight caution red on hover */
 }
 
-@media (max-width: 480px) {
-  .categories-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .categories-list-container {
+    padding: 4rem 4vw 5rem 4vw;
+    gap: 1rem;
   }
 }
 
