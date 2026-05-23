@@ -121,4 +121,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- 4. Scramble interactions on category items (WIP) ---
+  const categoryItems = document.querySelectorAll('.category-item');
+  categoryItems.forEach(item => {
+    const nameEl = item.querySelector('.category-name');
+    const originalText = item.getAttribute('data-target');
+    
+    if (nameEl && originalText) {
+      item.addEventListener('mouseenter', () => {
+        triggerScramble(nameEl, originalText, 15);
+      });
+    }
+  });
+
 });
