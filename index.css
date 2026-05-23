@@ -336,6 +336,11 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+.sub-video-item:nth-child(3) {
+  grid-column: span 2;
+  border-right: none;
+}
+
 .sub-video {
   width: 100%;
   height: 100%;
@@ -396,6 +401,9 @@ body {
   }
   .sub-video-item:last-child {
     border-bottom: none;
+  }
+  .sub-video-item:nth-child(3) {
+    grid-column: auto;
   }
   .header-container {
     padding: 2.5rem 2vw 2rem 2vw;
