@@ -421,6 +421,16 @@ body {
   background-color: #000000;
 }
 
+.categories-list-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
 .category-item-simple {
   cursor: default;
   user-select: none;
@@ -438,6 +448,8 @@ body {
   line-height: 0.85;
   display: block;
   transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.05em;
 }
 
 .category-item-simple:hover .category-name-simple {
