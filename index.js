@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let tcHour = 0;
   
   const camTimecodeEl = document.getElementById('cam-timecode');
+  const topCamTimecodeEl = document.getElementById('top-cam-timecode');
   
   function updateCamTimecode() {
-    if (!camTimecodeEl) return;
-    
     tcFrame++;
     if (tcFrame >= 30) {
       tcFrame = 0;
@@ -35,55 +34,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const ss = String(tcSec).padStart(2, '0');
     const ff = String(tcFrame).padStart(2, '0');
     
-    camTimecodeEl.innerText = `${hh}:${mm}:${ss}:${ff}`;
+    const timecodeString = `${hh}:${mm}:${ss}:${ff}`;
+    if (camTimecodeEl) camTimecodeEl.innerText = timecodeString;
+    if (topCamTimecodeEl) topCamTimecodeEl.innerText = timecodeString;
   }
   
   // Runs approximately at 30fps (33.3ms interval)
   setInterval(updateCamTimecode, 33.3);
 
-  // --- 2. Hero Video Autoplay & Dynamic Audio Warning Prompt ---
+  // --- 2. Hero Videos Autoplay & Dynamic Audio Warning Prompt ---
   const heroVideo = document.getElementById('hero-video');
   const audioPrompt = document.getElementById('audio-prompt-el');
+  const topHeroVideo = document.getElementById('top-hero-video');
+  const topAudioPrompt = document.getElementById('top-audio-prompt-el');
   
-  function dismissAudioPrompt() {
-    if (audioPrompt) {
-      audioPrompt.classList.add('fade-out');
+  function dismissAudioPrompt(promptEl) {
+    if (promptEl) {
+      promptEl.classList.add('fade-out');
     }
   }
 
-  function showAudioMutedPrompt() {
-    if (audioPrompt) {
-      audioPrompt.classList.remove('fade-out');
-      const textSpan = audioPrompt.querySelector('span:not(.audio-prompt-dot)');
+  function showAudioMutedPrompt(promptEl) {
+    if (promptEl) {
+      promptEl.classList.remove('fade-out');
+      const textSpan = promptEl.querySelector('span:not(.audio-prompt-dot)');
       if (textSpan) {
         textSpan.innerText = "AUDIO SYSTEM: MUTED // CLICK HERO VIDEO TO UNMUTE";
       }
     }
   }
 
-  if (heroVideo) {
-    // Start muted as requested by the user
-    heroVideo.muted = true;
+  // Setup video audio utility
+  function setupVideoAudio(videoEl, promptEl) {
+    if (!videoEl) return;
     
-    heroVideo.play().catch(error => {
+    // Start muted on page load
+    videoEl.muted = true;
+    // Lower volume slightly as requested by the user (30% volume)
+    videoEl.volume = 0.3;
+    
+    videoEl.play().catch(error => {
       console.warn("Muted playback blocked.", error);
     });
 
-    // Ensure initial state shows muted warning prompt
-    showAudioMutedPrompt();
+    // Initial state shows muted prompt
+    showAudioMutedPrompt(promptEl);
 
-    // Toggle mute state on clicking the hero video
-    heroVideo.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent document-level click listener conflicts
-      
-      heroVideo.muted = !heroVideo.muted;
-      if (heroVideo.muted) {
-        showAudioMutedPrompt();
+    // Toggle mute state on click
+    videoEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      videoEl.muted = !videoEl.muted;
+      if (videoEl.muted) {
+        showAudioMutedPrompt(promptEl);
       } else {
-        dismissAudioPrompt();
+        dismissAudioPrompt(promptEl);
       }
     });
   }
+
+  // Initialize both hero videos
+  setupVideoAudio(heroVideo, audioPrompt);
+  setupVideoAudio(topHeroVideo, topAudioPrompt);
 
   // --- 3. Dynamic Text Scramble Hover Mechanic ---
   const scrambleGlyphs = "0123456789_#@[]%/\\+=?*$!{}<>";
